@@ -16,7 +16,7 @@ program = pyttsx3.init()
 
 def lyrics_search(lyrics, url):
 
-    driver = webdriver.Chrome(chromedriver_mac)
+    driver = webdriver.Chrome(chromedriver_linux)
 
     driver.get(url=url)
 
