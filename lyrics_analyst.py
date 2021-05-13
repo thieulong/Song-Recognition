@@ -16,7 +16,7 @@ program = pyttsx3.init()
 
 def lyrics_search(lyrics, url):
 
-    driver = webdriver.Chrome(chromedriver_linux)
+    driver = webdriver.Chrome(chromedriver_mac, options=option)
 
     driver.get(url=url)
 
@@ -48,6 +48,8 @@ while True:
     choose = int(input("-> Choose: "))
 
     with speech_recognition.Microphone() as source:
+
+        os.system('clear')
 
         record = input("\nPress [ENTER] to start recording.")
 
