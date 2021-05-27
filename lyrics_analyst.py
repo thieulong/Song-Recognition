@@ -2,6 +2,9 @@ from selenium import webdriver
 import speech_recognition
 import pyttsx3
 import os
+from time import sleep
+
+from urllib3.packages.six import b
 
 chromedriver_linux = '/usr/bin/chromedriver'
 chromedriver_window = 'C:\\Users\\Lorca\\AppData\\Local\\Google\\Chrome\\chromedriver.exe'
@@ -24,64 +27,87 @@ def lyrics_search(lyrics, url):
     search_box.click()
     search_box.send_keys(lyrics)
 
+    print("\nAnalyzing ...\n")
+
+    sleep(3)
+
     song_title = driver.find_element_by_class_name("mini_card-title")
     singer = driver.find_element_by_class_name("mini_card-subtitle")
 
-    print("-"*150)
+    print("-"*50)
     print()
 
     print("Song: {title}".format(title=song_title.text))
     print("Singer: {singer}".format(singer=singer.text))
 
     print()
-    print("-"*150)
+    print("-"*50)
 
 
 while True:
 
     os.system('clear')
 
+    print("\nPress\n")
+    print("1 - Analyze using text\n")
+    print("2 - Analyze using voice\n")
+
+    mode = int(input("-> Choose: "))
+
     print("\nPress:\n")
     print("1 - To analyze US-UK Songs\n")
     print("2 - To analyze VN songs\n")
 
     choose = int(input("-> Choose: "))
+    print()
 
-    with speech_recognition.Microphone() as source:
+    if mode == 1:
 
-        os.system('clear')
+        text = input("Enter text: ")
 
-        record = input("\nPress [ENTER] to start recording.")
+        lyrics = text + "\n"
 
-        if record == "":
+        lyrics_search(lyrics=lyrics, url="https://genius.com/")
 
-            print("\nListening ...")
+        break
 
-            audio = microphone.record(source=source, duration=5)
+    elif mode == 2:
+
+        with speech_recognition.Microphone() as source:
+
+            os.system('clear')
+
+            record = input("\nPress [ENTER] to start recording.")
+
+            if record == "":
+
+                print("\nListening ...")
+
+                audio = microphone.record(source=source, duration=5)
+
+        try:
+
+            if choose == 1:
+
+                lyrics = microphone.recognize_google(audio, language="en-EN")
+
+            elif choose == 2:
+
+                lyrics = microphone.recognize_google(audio, language="vi-VN")
+
+            # print("\nLyrics: {lyrics}".format(lyrics=lyrics))
+
+            lyrics = lyrics + "\n"
+
+        except Exception as errMsg:
+
+            print("\n[ERROR]: {error}".format(error=errMsg))
+
+            print("\nTrying again ...")
 
         else:
 
+            lyrics_search(lyrics=lyrics, url="https://genius.com/")
+
             break
-
-    try:
-
-        if choose == 1:
-
-            lyrics = microphone.recognize_google(audio, language="en-EN")
-
-        elif choose == 2:
-
-            lyrics = microphone.recognize_google(audio, language="vi-VN")
-
-        print("\nLyrics: {lyrics}".format(lyrics=lyrics))
-
-    except Exception as errMsg:
-
-        print("\n[ERROR]: {error}".format(error=errMsg))
-
-        print("\nTrying again ...")
-
-    else:
-
-        lyrics_search(lyrics=lyrics, url="https://genius.com/")
 
