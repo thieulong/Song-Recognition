@@ -1,5 +1,5 @@
 # Song-Recognition
-A script to record your voice to analyst lyrics, then display the song name and singer.  
+A script to either take input or record your voice to analyst lyrics, then display the song name and singer, follow by a Youtube link of the song.  
   
 ### 1. Install Github & clone the script
 Firstly, to clone this script, you'll need to install Github to your device. Follow [this link](https://github.com/git-guides/install-git) for more!  
@@ -18,7 +18,7 @@ To download Python, check out this [link](https://www.python.org/downloads/), th
 ### 3. Install Requirements
 Open your Command Prompt or Terminal to this directory (Song-Recognition) using `cd`  
   
-Afterthat, type `pip3 install requirements.txt` into the Command Prompt / Terminal  
+Afterthat, type `pip3 install -r requirements.txt` into the Command Prompt / Terminal  
   
 Then, you'll need to install Chromedriver to run the script, you can figure out the proper Chromedriver version which is also your current Chrome version [here](https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome)  
   
