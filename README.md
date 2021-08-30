@@ -19,11 +19,13 @@ To download Python, check out this [link](https://www.python.org/downloads/), th
 Open your Command Prompt or Terminal to this directory (Song-Recognition) using `cd`  
   
 Afterthat, type `pip3 install -r requirements.txt` into the Command Prompt / Terminal  
-  
-Then, you'll need to install Chromedriver to run the script, you can figure out the proper Chromedriver version which is also your current Chrome version [here](https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome)  
-  
-Having done that, you can then download the Chromedriver in [here](https://chromedriver.chromium.org/downloads) (Remember to choose the version closest with the version you've found out above  
 
+### 4. Chromedriver
+There is already a Chromedriver application file consist in this repo, but if the program can't be run due to Chromedriver problems (Updates, configurations, ...) you'll then need to redownload Chromedriver in your device by the following steps: 
+  
+1. You'll need to figure out the proper Chromedriver version which is also your current Chrome version [here](https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome)  
+  
+2. Download the Chromedriver in [here](https://chromedriver.chromium.org/downloads) (Remember to choose the version closest with the version you've found out above  
 ### 4. Run the script  
 Navigate to Command Promp (or Terminal) to this directory, then type  
   
