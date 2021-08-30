@@ -3,15 +3,15 @@ import speech_recognition
 import pyttsx3
 import os
 from time import sleep
+import json
 
-chromedriver_linux = '/usr/bin/chromedriver'
-chromedriver_window = 'C:\\Users\\Lorca\\AppData\\Local\\Google\\Chrome\\chromedriver.exe'
-chromedriver_mac = '/usr/local/bin/chromedriver'
+with open('config.json') as file:
+    config = json.load(file)
 
 option = webdriver.ChromeOptions()
 option.add_argument('headless')
 
-driver = webdriver.Chrome(chromedriver_linux, chrome_options=option)
+driver = webdriver.Chrome(config['chrome_driver_linux'], chrome_options=option)
 
 microphone = speech_recognition.Recognizer()
 program = pyttsx3.init()

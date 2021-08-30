@@ -1,0 +1,5 @@
+{
+    "chrome_driver_linux": "/usr/bin/chromedriver",
+    "chrome_driver_window": "C:\\Users\\Lorca\\AppData\\Local\\Google\\Chrome\\chromedriver.exe",
+    "chromedriver_mac": "/usr/local/bin/chromedriver"
+}
