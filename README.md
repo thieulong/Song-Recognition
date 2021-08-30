@@ -1,5 +1,5 @@
 # Song-Recognition
-A script to record your voice to analyst lyrics, then display the song name and singer.  
+A script to either take input or record your voice to analyst lyrics, then display the song name and singer, follow by a Youtube link of the song.  
   
 ### 1. Install Github & clone the script
 Firstly, to clone this script, you'll need to install Github to your device. Follow [this link](https://github.com/git-guides/install-git) for more!  
@@ -18,12 +18,19 @@ To download Python, check out this [link](https://www.python.org/downloads/), th
 ### 3. Install Requirements
 Open your Command Prompt or Terminal to this directory (Song-Recognition) using `cd`  
   
-Afterthat, type `pip3 install requirements.txt` into the Command Prompt / Terminal  
-  
-Then, you'll need to install Chromedriver to run the script, you can figure out the proper Chromedriver version which is also your current Chrome version [here](https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome)  
-  
-Having done that, you can then download the Chromedriver in [here](https://chromedriver.chromium.org/downloads) (Remember to choose the version closest with the version you've found out above  
+Afterthat, type `pip3 install -r requirements.txt` into the Command Prompt / Terminal  
 
+### 4. Chromedriver
+There is already a Chromedriver application file consist in this repo, but if the program can't be run due to Chromedriver problems (Updates, configurations, ...) you'll then need to redownload Chromedriver in your device by the following steps: 
+  
+1. You'll need to figure out the proper Chromedriver version which is also your current Chrome version [here](https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome)  
+  
+2. Download the Chromedriver in [here](https://chromedriver.chromium.org/downloads) (Remember to choose the version closest with the version you've found out above    
+3. Change the path to Chromedriver in the `config.json` file to where Chromedriver is in your device (Only change the path with the suitable OS)
+  
+4. Open `lyrics_analyst.py`, in line 14, change to:
+- `driver = webdriver.Chrome(config['chrome_driver_window'], chrome_options=option)` if you're using Window
+- `driver = webdriver.Chrome(config['chrome_driver_mac'], chrome_options=option)` if you're using MacOS
 ### 4. Run the script  
 Navigate to Command Promp (or Terminal) to this directory, then type  
   
