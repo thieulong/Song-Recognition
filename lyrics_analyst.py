@@ -2,6 +2,7 @@ from selenium import webdriver
 import speech_recognition
 import pyttsx3
 import os
+from time import sleep
 
 chromedriver_linux = '/usr/bin/chromedriver'
 chromedriver_window = 'C:\\Users\\Lorca\\AppData\\Local\\Google\\Chrome\\chromedriver.exe'
@@ -10,34 +11,66 @@ chromedriver_mac = '/usr/local/bin/chromedriver'
 option = webdriver.ChromeOptions()
 option.add_argument('headless')
 
+driver = webdriver.Chrome(chromedriver_linux, chrome_options=option)
+
 microphone = speech_recognition.Recognizer()
 program = pyttsx3.init()
 
 
+def format(text, mode):
+
+    if mode == 'genius':
+
+        text = text.replace(" ","%20")
+        text = text.replace("'","%27")
+
+    elif mode == 'youtube':
+
+        text = text.replace(" ", "+")
+        text = text.replace("'","%27")
+        text = text + "+"
+
+    return text
+
+
 def lyrics_search(lyrics, url):
 
-    driver = webdriver.Chrome(chromedriver_mac, options=option)
+    string = format(text=lyrics, mode='genius')
 
-    driver.get(url=url)
+    link = "https://genius.com/search?q={formatted_search}".format(formatted_search=string)
 
-    search_box = driver.find_element_by_name("q")
-    search_box.click()
-    search_box.send_keys(lyrics)
+    driver.get(url=link)
 
     song_title = driver.find_element_by_class_name("mini_card-title")
     singer = driver.find_element_by_class_name("mini_card-subtitle")
 
-    print("-"*150)
-    print()
-
-    print("Song: {title}".format(title=song_title.text))
+    print("\nSong: {title}".format(title=song_title.text))
     print("Singer: {singer}".format(singer=singer.text))
 
-    print()
-    print("-"*150)
+    return song_title.text, singer.text
 
 
-while True:
+def song_lookup(title, singer):
+
+    search = "{title} {singer}".format(title=title, singer=singer)
+
+    string = format(text=search, mode='youtube')
+
+    link = "https://www.youtube.com/results?search_query={query}".format(query=string)
+
+    driver.get(url=link)
+
+    # search_box = driver.find_element_by_id("search")
+    # search_box.click()
+    # search_box.send_keys("{song_name} {singer}\n".format(song_name = title, singer = singer))
+
+    top_search = driver.find_element_by_id("video-title")
+    top_search.click()
+
+    print("\nLink: {url}".format(url=driver.current_url))
+
+
+def voice_search():
 
     os.system('clear')
 
@@ -57,11 +90,7 @@ while True:
 
             print("\nListening ...")
 
-            audio = microphone.record(source=source, duration=5)
-
-        else:
-
-            break
+            audio = microphone.record(source=source, duration=8)
 
     try:
 
@@ -75,13 +104,54 @@ while True:
 
         print("\nLyrics: {lyrics}".format(lyrics=lyrics))
 
+        return lyrics
+
     except Exception as errMsg:
 
         print("\n[ERROR]: {error}".format(error=errMsg))
 
         print("\nTrying again ...")
 
+
+def text_search():
+
+    os.system('clear')
+
+    print("Enter lyrics:")
+
+    lyrics = input("-> ")
+
+    return lyrics
+
+while True:
+
+    os.system('clear')
+
+    print("Choose mode:")
+    print("1. Voice")
+    print("2. Type\n")
+
+    choice = input("-> ")
+
+    if choice == '1':
+
+        lyrics = text_search()
+        song_title, singer = lyrics_search(lyrics = lyrics, url = "https://genius.com/")
+        song_lookup(title = song_title, singer = singer)
+
+        break
+
+    elif choice == '2':
+
+        lyrics = text_search()
+        song_title, singer = lyrics_search(lyrics = lyrics, url = "https://genius.com/")
+        song_lookup(title = song_title, singer = singer)
+
+        break
+    
     else:
 
-        lyrics_search(lyrics=lyrics, url="https://genius.com/")
+        print("\n[ERROR] Please try again!\n")
+
+        sleep(2)
 
