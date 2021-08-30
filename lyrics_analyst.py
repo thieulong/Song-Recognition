@@ -41,6 +41,8 @@ def lyrics_search(lyrics, url):
 
     driver.get(url=link)
 
+    print("\nAnalyzing ...")
+
     song_title = driver.find_element_by_class_name("mini_card-title")
     singer = driver.find_element_by_class_name("mini_card-subtitle")
 
@@ -70,6 +72,17 @@ def song_lookup(title, singer):
     print("\nLink: {url}".format(url=driver.current_url))
 
 
+def text_search():
+    
+    os.system('clear')
+
+    print("Enter lyrics:")
+
+    lyrics = input("-> ")
+
+    return lyrics
+
+
 def voice_search():
 
     os.system('clear')
@@ -79,6 +92,7 @@ def voice_search():
     print("2 - To analyze VN songs\n")
 
     choose = int(input("-> Choose: "))
+    print()
 
     with speech_recognition.Microphone() as source:
 
@@ -90,7 +104,7 @@ def voice_search():
 
             print("\nListening ...")
 
-            audio = microphone.record(source=source, duration=8)
+            audio = microphone.record(source=source, duration=5)
 
     try:
 
@@ -102,26 +116,15 @@ def voice_search():
 
             lyrics = microphone.recognize_google(audio, language="vi-VN")
 
-        print("\nLyrics: {lyrics}".format(lyrics=lyrics))
-
         return lyrics
 
     except Exception as errMsg:
 
-        print("\n[ERROR]: {error}".format(error=errMsg))
+            print("\n[ERROR]: {error}".format(error=errMsg))
 
-        print("\nTrying again ...")
+            print("\nTrying again ...")
 
 
-def text_search():
-
-    os.system('clear')
-
-    print("Enter lyrics:")
-
-    lyrics = input("-> ")
-
-    return lyrics
 
 while True:
 
@@ -135,7 +138,7 @@ while True:
 
     if choice == '1':
 
-        lyrics = text_search()
+        lyrics = voice_search()
         song_title, singer = lyrics_search(lyrics = lyrics, url = "https://genius.com/")
         song_lookup(title = song_title, singer = singer)
 
