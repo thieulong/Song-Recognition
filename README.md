@@ -25,7 +25,12 @@ There is already a Chromedriver application file consist in this repo, but if th
   
 1. You'll need to figure out the proper Chromedriver version which is also your current Chrome version [here](https://help.zenplanner.com/hc/en-us/articles/204253654-How-to-Find-Your-Internet-Browser-Version-Number-Google-Chrome)  
   
-2. Download the Chromedriver in [here](https://chromedriver.chromium.org/downloads) (Remember to choose the version closest with the version you've found out above  
+2. Download the Chromedriver in [here](https://chromedriver.chromium.org/downloads) (Remember to choose the version closest with the version you've found out above    
+3. Change the path to Chromedriver in the `config.json` file to where Chromedriver is in your device (Only change the path with the suitable OS)
+  
+4. Open `lyrics_analyst.py`, in line 14, change to:
+- `driver = webdriver.Chrome(config['chrome_driver_window'], chrome_options=option)` if you're using Window
+- `driver = webdriver.Chrome(config['chrome_driver_mac'], chrome_options=option)` if you're using MacOS
 ### 4. Run the script  
 Navigate to Command Promp (or Terminal) to this directory, then type  
   
